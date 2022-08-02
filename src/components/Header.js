@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../github.png';
 
 const Header = () => {
 
@@ -19,8 +20,16 @@ const Header = () => {
                 <a className='header item' href="">Explore</a>
 
                 <div className='header item right aligned'>
-                    <i className="big github icon inverted" />
+                    <div className="ui right dropdown item">
+                        <i className="dropdown icon"></i>
+                        <div className="menu">
+                        <div className="item">Applications</div>
+                        <div className="item">International Students</div>
+                        <div className="item">Scholarships</div>
+                        </div>
+                    </div>   
                 </div>
+               
                 
         </div>
 

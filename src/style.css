@@ -13,6 +13,12 @@ body {
 
 }
 
+.ui.breadcrumb .divider {
+    color: white;
+}
+
+
+
 a :hover {
     color: rgb(209, 87, 87);
 
@@ -20,4 +26,13 @@ a :hover {
 
 .ui .container .main-content{
     margin-top: 90px;
+}
+
+#public-badge {
+    background-color: #121214;
+    border-color:aliceblue;
+    display: inline-block;
+    color: white;
+    padding: .2em !important;
+    min-height: 1em;
 }

@@ -13,8 +13,13 @@ const Header = () => {
                         <i className="inverted search link icon"></i>
                     </div>
                 </div>
-                <div className="header item">
-                    <a className='.ui .item' href="">test</a>
+                <a className='header item' href="">Pull requests</a>
+                <a className='header item' href="">Issues</a>
+                <a className='header item' href="">Marketplace</a>
+                <a className='header item' href="">Explore</a>
+
+                <div className='header item right aligned'>
+                    <i className="big github icon inverted" />
                 </div>
                 
         </div>

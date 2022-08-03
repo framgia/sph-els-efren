@@ -1,8 +1,10 @@
 import React from 'react';
-import logo from '../github.png';
+import logo from '../github.png'; // temporary to be remove for testing purposes
 
 const Header = () => {
 
+
+    //make it dynamic (add user profile)
     return(
         <div className="ui fixed borderless huge menu">
                 <div className="header item">

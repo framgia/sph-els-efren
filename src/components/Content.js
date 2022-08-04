@@ -1,62 +1,45 @@
-import React from 'react';
+import React from "react";
 
-const Content = () => {
+const Content = ({issues}) => {
 
-    return(
-       <div className="ui container main-content">
-                <div className="ui huge breadcrumb">
-                    <a className="section">  Home</a>
-                    <div className="divider"> / </div>
-                    <a className="section">Store</a>
-                    <div className="divider"> / </div>
-                    <div class="ui medium basic circular label" id="public-badge">
-                    Public
-                    </div>
+    //for refactoring
+    let count=0,count2 = 0, active, closed;
+    active = issues.filter(item => item.state === 'open');
+    closed = issues.filter(item => item.locked === false);
+    count = active.length;
+    count2 = closed.length;
 
-                </div>
+    const renderedList = issues.map((issue, index) => {
+        return(
+           
+            <tr key={issue.id}>
+                <td className="collapsing">
+                    <i className="dot circle outline large green icon"> </i>
+                    {issue.title}
+                </td>
+                <td>{issue.user.login}</td>
+                <td className="right aligned collapsing">{issue.created_at}</td>
+            </tr>
+        ); 
+    })
 
-                <div className="ui top attached tabular menu">
-                <div className="active item">Code</div>
-                <div className=" item">Issues</div>
-                <div className=" item">Pull requests</div>
-                <div className=" item">Actions</div>
-                <div className=" item">Projects</div>
-                <div className=" item">Wiki</div>
-                <div className=" item">Security</div>
-                <div className=" item">Insights</div>
-                </div>
-                <div className="ui bottom attached active tab segment">
-               <table className="ui single line table">
-                            <thead>
-                                <tr>
-                                    <th colSpan="3">
-                                   342 Open
-                                    </th>
-                                
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <td className="collapsing">
-                                    <i className="folder icon"></i> node_modules
-                                </td>
-                                <td>Initial commit</td>
-                                <td className="right aligned collapsing">10 hours ago</td>
-                                </tr>
-                                <tr>
-                                <td>
-                                    <i className="folder icon"></i> test
-                                </td>
-                                <td>Initial commit</td>
-                                <td className="right aligned">10 hours ago</td>
-                                </tr>
-                            </tbody>
-                            </table>
-                </div>
-       
-       </div>
-       
+    return( 
+        <table className="ui celled striped table inverted">
+            <thead>
+                <tr>
+                    <th colSpan="3">
+                    <i className="dot circle outline large white icon"></i>
+                    {count} Open <i className="check small white icon"></i> {count2} Closed
+                    <div className="ui right aligned"> test</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+              {renderedList}
+            </tbody>
+        </table>
     );
+
 }
 
 export default Content;

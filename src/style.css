@@ -24,8 +24,10 @@ a :hover {
 
 }
 
-.ui .container .main-content{
+#main-content {
     margin-top: 90px;
+    margin-bottom: 80px;
+    padding: 10px;
 }
 
 #public-badge {

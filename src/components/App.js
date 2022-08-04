@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect, useState } from 'react';
 import Header from './Header';
 import Content from './Content';
 import github from '../api/github';
@@ -16,32 +16,25 @@ import '../style.css';
 		*Provide form to input repo information dynamically, and display related issues
 */
 
-class App extends React.Component {
+const App = () => {
+    
+    const [issue, setIssue] = useState([]);
 
-    state = {issues: []}
-
-    onTermSubmit = async () => {
+        const loadIssues = async () => {
             const response = await github.get();
-            this.setState({ 
-                issues: response.data,
-            })
+            setIssue(response.data)
         }
-
-    componentDidMount() {
-        this.onTermSubmit();
-    }
-
+        
+    loadIssues();
     //add pagination feature in content component
-    render() {
         return (
-         <div className='ui container'>
-            <Header />
-            <div className="ui container" id="main-content">
-            <Content issues={this.state.issues} />
+            <div className='ui container'>
+                <Header />
+                <div className="ui container" id="main-content">
+                    <Content issues={issue} />
+                </div>
             </div>
-         </div>
         )
-    }
 }
 
 export default App

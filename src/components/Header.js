@@ -3,7 +3,6 @@ import logo from '../github.png'; // temporary to be remove for testing purposes
 
 const Header = () => {
 
-
     //make it dynamic (add user profile)
     return(
         <div className="ui fixed borderless huge menu">
@@ -25,18 +24,15 @@ const Header = () => {
                     <div className="ui right dropdown item">
                         <i className="dropdown icon"></i>
                         <div className="menu">
-                        <div className="item">Applications</div>
-                        <div className="item">International Students</div>
-                        <div className="item">Scholarships</div>
+                            <div className="item">Applications</div>
+                            <div className="item">International Students</div>
+                            <div className="item">Scholarships</div>
                         </div>
                     </div>   
                 </div>
-               
-                
         </div>
-
-
     );
 }
 
 export default Header;
+

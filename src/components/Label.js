@@ -1,22 +1,28 @@
 import React from "react";
 
 const Label = ({labels}) => {
-    
-    console.log(labels);
-    const renderedList = labels.map((label, index) => {
+     //for refactoring
+     let count=0;
+     count = labels.length;
+
+    const renderedList = labels.map((label) => {
         return(
-           
-          <div>test</div>
+            <tr key={label.id}>
+                <td className="collapsing">
+                    <a className="ui basic label" style={{ backgroundColor:`#${label.color}` }}>{label.name}</a>
+                </td>
+                <td className="right aligned collapsing">{label.description}</td>
+                <td className="right aligned collapsing">{label.created_at}</td>
+            </tr>
         ); 
     })
 
     return( 
-        <table className="ui celled striped table inverted">
+        <table className="ui table inverted">
             <thead>
                 <tr>
-                    <th colSpan="2">
-                    <i className="dot circle outline large white icon"></i>
-                    <div className="ui right aligned"> test</div>
+                    <th colSpan="3">
+                    {count} Labels
                     </th>
                 </tr>
             </thead>

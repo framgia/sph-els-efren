@@ -2,6 +2,8 @@ import React,{ useEffect, useState } from 'react';
 import Header from './Header';
 import Content from './Content';
 import github from '../api/github';
+import git_label from '../api/github_labels';
+import Label from './Label';
 import '../style.css';
 import Route from './Route';
 
@@ -20,14 +22,21 @@ import Route from './Route';
 const App = () => {
     
     const [issue, setIssue] = useState([]);
+    const [label, setLabel] = useState([]);
 
         const loadIssues = async () => {
             const response = await github.get();
             setIssue(response.data)
         }
+
+        const loadLabel = async () => {
+            const response = await git_label.get();
+            setLabel(response.data)
+        }
     
     useEffect(() => {
         loadIssues();
+        loadLabel();
     }, []);
 
     //*add pagination feature in content component *make content dynamic for issues & label
@@ -38,7 +47,7 @@ const App = () => {
                     <div className="ten wide column" id="search-label-content-column">
                         <div className="ui left action left icon input fluid">
                             <div className="ui basic floating dropdown button inverted">
-                                <div className="text">This Page</div>
+                                <div className="text">Filter</div>
                                 <i className="dropdown icon"></i>
                                 <div className="menu">
                                     <div className="item">This Organization</div>
@@ -64,7 +73,7 @@ const App = () => {
                             <Content issues={issue} />
                     </Route>
                     <Route path='/labels'>
-                            <div>Test</div>
+                           <Label labels={label}></Label>
                     </Route>
                 </div>
             </div>

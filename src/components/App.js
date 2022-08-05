@@ -3,6 +3,7 @@ import Header from './Header';
 import Content from './Content';
 import github from '../api/github';
 import '../style.css';
+import Route from './Route';
 
 /*
 	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status
@@ -24,14 +25,47 @@ const App = () => {
             const response = await github.get();
             setIssue(response.data)
         }
-        
-    loadIssues();
-    //add pagination feature in content component
+    
+    useEffect(() => {
+        loadIssues();
+    }, []);
+
+    //*add pagination feature in content component *make content dynamic for issues & label
         return (
             <div className='ui container'>
                 <Header />
+                <div className="ui grid" id="search-label-content">
+                    <div className="ten wide column" id="search-label-content-column">
+                        <div className="ui left action left icon input fluid">
+                            <div className="ui basic floating dropdown button inverted">
+                                <div className="text">This Page</div>
+                                <i className="dropdown icon"></i>
+                                <div className="menu">
+                                    <div className="item">This Organization</div>
+                                    <div className="item">Entire Site</div>
+                                </div>
+                            </div>
+                            <i className="search icon " id="icon-search"></i>
+                            <input type="text" placeholder="Search" />
+                        </div>
+                    </div>
+                    <div className="six wide column" id="search-label-content-column">
+                        <button className="ui basic inverted left attached button"> <i className='ui tag icon'></i> Labels 342</button>
+                        <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon'></i> Milestones 332</button>
+                        <button className="positive ui button" style={{ marginLeft:'20px' }}>New Issue</button>
+                    </div>
+                </div>
                 <div className="ui container" id="main-content">
-                    <Content issues={issue} />
+                    <Route path='/'>
+                            <Content issues={issue} />
+                    </Route>
+                        
+                    <Route path='/issues'>
+                            <Content issues={issue} />
+                    </Route>
+                    <Route path='/labels'>
+                            <div>Test</div>
+                    </Route>
                 </div>
             </div>
         )

@@ -25,9 +25,23 @@ a :hover {
 }
 
 #main-content {
-    margin-top: 90px;
+    margin-top: 5px;
     margin-bottom: 80px;
-    padding: 10px;
+    padding: 5px;
+}
+
+#search-label-content {
+    margin-top: 80px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+#search-label-content-column {
+    padding-bottom: 5px;
+}
+
+#icon-search {
+    margin-left: 120px;
 }
 
 #public-badge {

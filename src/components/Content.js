@@ -2,7 +2,6 @@ import React from "react";
 
 const Content = ({issues}) => {
 
-    //for refactoring
     let count=0,count2 = 0, active, closed;
     active = issues.filter(item => item.state === 'open');
     closed = issues.filter(item => item.locked === false);
@@ -11,17 +10,17 @@ const Content = ({issues}) => {
 
     const renderedList = issues.map((issue, index) => {
         return(
-           
             <tr key={issue.id}>
                 <td className="collapsing">
                     <i className="dot circle outline large green icon"> </i>
                     {issue.title}
                 </td>
                 <td>{issue.user.login}</td>
+                <td>{issue.state}</td>
                 <td className="right aligned collapsing">{issue.created_at}</td>
             </tr>
         ); 
-    })
+    });
 
     return( 
         <table className="ui celled striped table inverted">
@@ -39,7 +38,6 @@ const Content = ({issues}) => {
             </tbody>
         </table>
     );
-
 }
 
 export default Content;

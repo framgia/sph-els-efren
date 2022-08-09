@@ -1,9 +1,9 @@
 import React from "react";
 
 const Label = ({labels}) => {
-     //for refactoring
-     let count=0;
-     count = labels.length;
+    //for refactoring
+    let count=0;
+    count = labels.length;
 
     const renderedList = labels.map((label) => {
         return(
@@ -22,7 +22,7 @@ const Label = ({labels}) => {
             <thead>
                 <tr>
                     <th colSpan="3">
-                    {count} Labels
+                        {count} Labels
                     </th>
                 </tr>
             </thead>

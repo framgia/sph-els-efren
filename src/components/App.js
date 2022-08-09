@@ -87,13 +87,13 @@ const App = () => {
                     <div className="ten wide column" id="search-label-content-column">
                         <div className="ui left action left icon input fluid">
                             <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
-                            <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }}></i>
+                            <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
                             <input type="text" placeholder="Search" />
                         </div>
                     </div>
                     <div className="six wide column" id="search-label-content-column">
-                        <button className="ui basic inverted left attached button"> <i className='ui tag icon'></i> Labels 342</button>
-                        <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon'></i> Milestones 332</button>
+                        <button className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</button>
+                        <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon' /> Milestones 332</button>
                         <button className="positive ui button">New Issue</button>
                     </div>
                 </div>

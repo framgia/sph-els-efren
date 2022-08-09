@@ -45,13 +45,14 @@ const App = () => {
     const [githubState, setgithubState] = useState(options[0].value); // for filter open/closed/all
 
     const loadIssues = async (pageNumber) => {
+        
         const response = await github.get('/issues', {
             params: {
               page:  pageNumber ?? 1,
               state: githubState === 'all' ? 'all' : githubState.value
             }
           });
-          
+
         setIssue(response.data)
     }
         

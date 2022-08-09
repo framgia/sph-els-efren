@@ -13,24 +13,32 @@ const Content = ({issues}) => {
             <tr key={issue.id}>
                 <td className="collapsing">
                     <i className="dot circle outline large green icon"> </i>
-                    {issue.title}
+                   <a href={issue.html_url} target="_blank" alt="issues"> {issue.title}</a>
                 </td>
+                <td>{issue.id}</td>
                 <td>{issue.user.login}</td>
-                <td>{issue.state}</td>
                 <td className="right aligned collapsing">{issue.created_at}</td>
+                <td>{issue.state}</td>
+                <td></td>
             </tr>
         ); 
     });
 
     return( 
-        <table className="ui celled striped table inverted">
+        <table className="ui small table  inverted">
             <thead>
                 <tr>
-                    <th colSpan="3">
-                    <i className="dot circle outline large white icon"></i>
-                    {count} Open <i className="check small white icon"></i> {count2} Closed
-                    <div className="ui right aligned"> test</div>
+                    <th colSpan="6">
+                        <span> {count} Open</span> <span><i className="check small white icon"></i> {count2} Closed</span>
                     </th>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <th>Id</th>
+                    <th>Author</th>
+                    <th>Date Info</th>
+                    <th>Status</th>
+                    <th>Label</th>
                 </tr>
             </thead>
             <tbody>

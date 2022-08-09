@@ -8,12 +8,12 @@ import Route from './Route';
 import DropDown from './DropDown';
 
 /*
-	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status
-		*Able to display labels with respective colors
-		*Able to paginate through all issues (Previous and Next behavior only)
-		*Able to filter according to status: All, Open, Closed
+	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status ✓
+		*Able to display labels with respective colors ✓
+		*Able to paginate through all issues (Previous and Next behavior only) ✓
+		*Able to filter according to status: All, Open, Closed ✓
 	Issues Detail Page	Once an item in issues list page is clicked, should redirect to new page and display Detail Page
-		*Display header area with ff information:  Title, ID, Author, Date info, Status, Labels
+		*Display header area with ff information:  Title, ID, Author, Date info, Status, Labels ✓
 		*Display information area with Author, and Description with proper markdown display
 	Additional Features 	Display owner and name information in header area
 		*Provide form to input repo information dynamically, and display related issues
@@ -80,38 +80,38 @@ const App = () => {
         loadLabel();
     },[])
 
-        return (
-            <div className='ui container'>
-                <Header />
-                <div className="ui grid" id="search-label-content">
-                    <div className="ten wide column" id="search-label-content-column">
-                        <div className="ui left action left icon input fluid">
-                            <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
-                            <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }}></i>
-                            <input type="text" placeholder="Search" />
-                        </div>
-                    </div>
-                    <div className="six wide column" id="search-label-content-column">
-                        <button className="ui basic inverted left attached button"> <i className='ui tag icon'></i> Labels 342</button>
-                        <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon'></i> Milestones 332</button>
-                        <button className="positive ui button">New Issue</button>
+    return (
+        <div className='ui container'>
+            <Header />
+            <div className="ui grid" id="search-label-content">
+                <div className="ten wide column" id="search-label-content-column">
+                    <div className="ui left action left icon input fluid">
+                        <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
+                        <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }}></i>
+                        <input type="text" placeholder="Search" />
                     </div>
                 </div>
-                <div className="ui container" id="main-content">
-                            <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber -1)}>Prev</button>
-                            <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber +1)}>Next</button>
-                    <Route path='/'>
-                            <Content issues={issue} />
-                    </Route>
-                    <Route path='/issues'>
-                            <Content issues={issue} />
-                    </Route>
-                    <Route path='/labels'>
-                           <Label labels={label}></Label>
-                    </Route>
+                <div className="six wide column" id="search-label-content-column">
+                    <button className="ui basic inverted left attached button"> <i className='ui tag icon'></i> Labels 342</button>
+                    <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon'></i> Milestones 332</button>
+                    <button className="positive ui button" style={{ marginLeft:'5px' }}>New Issue</button>
                 </div>
             </div>
-        )
+            <div className="ui container" id="main-content">
+                        <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber -1)}>Prev</button>
+                        <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber +1)}>Next</button>
+                <Route path='/'>
+                        <Content issues={issue} />
+                </Route>
+                <Route path='/issues'>
+                        <Content issues={issue} />
+                </Route>
+                <Route path='/labels'>
+                        <Label labels={label}></Label>
+                </Route>
+            </div>
+        </div>
+    )
 }
 
 export default App

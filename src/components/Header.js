@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../github.png'; // temporary to be remove for testing purposes
 
 const Header = () => {
 

@@ -107,12 +107,11 @@ const App = () => {
                         <Content issues={issue} />
                 </Route>
                 <Route path='/labels'>
-                        <Label labels={label}></Label>
+                        <Label labels={label} />
                 </Route>
             </div>
         </div>
     )
 }
 
-export default App
-
+export default App;

@@ -2,25 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
     const DropDown = ({ label, options, selected, onSelectedChange }) => {
     const [open, setOpen] = useState(false);
-    const ref = useRef();
-
-    useEffect(() => {
-        const onBodyClick = (event) => {
-            if(ref.current.contains(event.target)) {
-                return;
-            }
-            setOpen(false);
-        };
-        document.body.addEventListener("click",onBodyClick, {capture: true
-        });
-
-        return () => {
-            document.body.removeEventListener("click", onBodyClick, {
-                capture: true,
-            });
-        }
-    }, []);
-
+    
     const renderedOptions = options.map((option) => {
         if(option.value === selected.value) {
             return null;
@@ -34,13 +16,13 @@ import React, { useState, useEffect, useRef } from "react";
     });
 
     return (
-            <div ref={ref} className="ui form">
+            <div onClick={() => setOpen(!open)} className="ui form">
                 <div onClick={() => setOpen(!open)} className={`ui basic inverted floating dropdown button ${open ? 'visible active': ''}`}>
                     <div className="text">{selected.label}</div>
                     <div className={`menu ${open ? 'visible transition' : ''}`}>
                         {renderedOptions}
                     </div>
-                    <i className="dropdown icon"></i>
+                    <i className="dropdown icon" />
                 </div>
         </div>
     );

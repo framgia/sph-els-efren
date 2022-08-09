@@ -45,26 +45,14 @@ const App = () => {
     const [githubState, setgithubState] = useState(options[0].value); // for filter open/closed/all
 
     const loadIssues = async (pageNumber) => {
-        let gitState = '';
-            if(githubState === 'all') {
-                gitState = '&state=all'
-            } else {
-                gitState = '&state=' + githubState.value
+        const response = await github.get('/issues', {
+            params: {
+              page:  pageNumber ?? 1,
+              state: githubState === 'all' ? 'all' : githubState.value
             }
-
-        if (pageNumber === 0) {
-            setpageNumber(1)
-            const response = await github.get('/issues?page=' + pageNumber +gitState);
-            setIssue(response.data)
-        } else {
-            const response = await github.get('/issues?page=' + pageNumber +gitState);
-            if(response.data.length  === 0){
-                setpageNumber(pageNumber -1)
-                const response = await github.get('/issues?page=' + pageNumber +gitState);
-                setIssue(response.data)
-            }
-            setIssue(response.data)
-        }
+          });
+          
+        setIssue(response.data)
     }
         
     const loadLabel = async () => {

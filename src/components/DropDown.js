@@ -25,7 +25,7 @@ const DropDown = ({ label, options, selected, onSelectedChange }) => {
                     </div>
                     <i className="dropdown icon" />
                 </div>
-        </div>
+            </div>
     );
 }
 export default DropDown;

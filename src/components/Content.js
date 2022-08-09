@@ -4,7 +4,7 @@ const Content = ({issues}) => {
 
     let count=0,count2 = 0, active, closed;
     active = issues.filter(item => item.state === 'open');
-    closed = issues.filter(item => item.locked === false);
+    closed = issues.filter(item => item.state === 'closed');
     count = active.length;
     count2 = closed.length;
 

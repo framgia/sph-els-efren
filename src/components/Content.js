@@ -1,25 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Content = ({issues}) => {
+
+    const [isShown, setIsShown] = useState(false);
+    const [author, setAuthor] = useState([])
 
     let count=0,count2 = 0, active, closed;
     active = issues.filter(item => item.state === 'open');
     closed = issues.filter(item => item.locked === false);
     count = active.length;
     count2 = closed.length;
+    
+    const loadAuthor = (term) => {
+        console.log(term)
+    }
+
+    useEffect(() => {
+
+    }, [])
 
     const renderedList = issues.map((issue, index) => {
         return(
             <tr key={issue.id}>
                 <td className="collapsing">
                     <i className="dot circle outline large green icon"> </i>
-                   <a href={issue.html_url} target="_blank" alt="issues"> {issue.title}</a>
+                    <a href={issue.html_url} style={{ color:'white' }} target="_blank" alt="issues"> {issue.title}</a>
                 </td>
                 <td>{issue.id}</td>
-                <td>{issue.user.login}</td>
+                <td  
+                    onMouseEnter={() => setIsShown(true)}
+                    onMouseLeave={() => setIsShown(false)}
+                    >{issue.user.login}</td>
                 <td className="right aligned collapsing">{issue.created_at}</td>
                 <td>{issue.state}</td>
-                <td></td>
+                <td>{isShown && (<div>test</div>)}</td>
             </tr>
         ); 
     });

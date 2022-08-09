@@ -54,13 +54,13 @@ const App = () => {
 
         if (pageNumber === 0) {
             setpageNumber(1)
-            const response = await github.get('issues?page=' + pageNumber +gitState);
+            const response = await github.get('/issues?page=' + pageNumber +gitState);
             setIssue(response.data)
         } else {
-            const response = await github.get('issues?page=' + pageNumber +gitState);
+            const response = await github.get('/issues?page=' + pageNumber +gitState);
             if(response.data.length  === 0){
                 setpageNumber(pageNumber -1)
-                const response = await github.get('issues?page=' + pageNumber +gitState);
+                const response = await github.get('/issues?page=' + pageNumber +gitState);
                 setIssue(response.data)
             }
             setIssue(response.data)

@@ -1,6 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'https://api.github.com/repos/vuejs/vue/issues',
-  })
-  
+  baseURL: `${process.env.REACT_APP_GITHUB_API}`,
+})

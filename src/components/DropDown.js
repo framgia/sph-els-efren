@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const DropDown = ({ label, options, selected, onSelectedChange }) => {
+   
     const [open, setOpen] = useState(false);
 
     const renderedOptions = options.map((option) => {
@@ -22,7 +23,7 @@ const DropDown = ({ label, options, selected, onSelectedChange }) => {
                     <div className={`menu ${open ? 'visible transition' : ''}`}>
                         {renderedOptions}
                     </div>
-                    <i className="dropdown icon"></i>
+                    <i className="dropdown icon" />
                 </div>
         </div>
     );

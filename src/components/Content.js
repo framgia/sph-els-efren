@@ -7,7 +7,7 @@ const Content = ({issues}) => {
 
     let count=0,count2 = 0, active, closed;
     active = issues.filter(item => item.state === 'open');
-    closed = issues.filter(item => item.locked === false);
+    closed = issues.filter(item => item.state === 'closed');
     count = active.length;
     count2 = closed.length;
     
@@ -19,8 +19,10 @@ const Content = ({issues}) => {
 
     }, [])
 
-    const renderedList = issues.map((issue, index) => {
+    const renderedList = issues.map((issue) => {
+
         return(
+          
             <tr key={issue.id}>
                 <td className="collapsing">
                     <i className="dot circle outline large green icon"> </i>
@@ -33,13 +35,14 @@ const Content = ({issues}) => {
                     >{issue.user.login}</td>
                 <td className="right aligned collapsing">{issue.created_at}</td>
                 <td>{issue.state}</td>
-                <td>{isShown && (<div>test</div>)}</td>
+                <td>{issue.labels[0].name}</td>
+                 
             </tr>
         ); 
     });
 
     return( 
-        <table className="ui small table  inverted">
+        <table className="ui small table inverted">
             <thead>
                 <tr>
                     <th colSpan="6">

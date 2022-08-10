@@ -4,8 +4,8 @@ import Content from './Content';
 import github from '../api/github';
 import Label from './Label';
 import '../style.css';
-import Route from './Route';
 import DropDown from './DropDown';
+import { BrowserRouter, Link, Route, Routes, Outlet } from 'react-router-dom'
 
 /*
 	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status ✓
@@ -41,30 +41,25 @@ const App = () => {
     
     const [issue, setIssue] = useState([]);
     const [label, setLabel] = useState([]);
-    const [pageNumber, setpageNumber] = useState(0);
+    const [pageNumber, setpageNumber] = useState(1);
     const [githubState, setgithubState] = useState(options[0].value); // for filter open/closed/all
-
+    const [pageMax, setPageMax] = useState(0);
     const loadIssues = async (pageNumber) => {
-        let gitState = '';
-            if(githubState === 'all') {
-                gitState = '&state=all'
-            } else {
-                gitState = '&state=' + githubState.value
-            }
 
-        if (pageNumber === 0) {
-            setpageNumber(1)
-            const response = await github.get('/issues?page=' + pageNumber +gitState);
-            setIssue(response.data)
-        } else {
-            const response = await github.get('/issues?page=' + pageNumber +gitState);
-            if(response.data.length  === 0){
-                setpageNumber(pageNumber -1)
-                const response = await github.get('/issues?page=' + pageNumber +gitState);
-                setIssue(response.data)
+      await github.get('/issues', {
+            params: {
+              page:  pageNumber,
+              state: githubState === 'all' ? 'all' : githubState.value
             }
-            setIssue(response.data)
-        }
+          }).then(response => {
+            
+            const isDataAvailable = response.data && response.data.length;
+            setIssue(isDataAvailable ? response.data : [])
+            setPageMax(isDataAvailable === 0 ? 1 : 0)
+
+          }).catch(function(error) {
+            console.error(error);
+        });
     }
         
     const loadLabel = async () => {
@@ -82,34 +77,31 @@ const App = () => {
 
     return (
         <div className='ui container'>
-            <Header />
-            <div className="ui grid" id="search-label-content">
-                <div className="ten wide column" id="search-label-content-column">
-                    <div className="ui left action left icon input fluid">
-                        <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
-                        <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
-                        <input type="text" placeholder="Search" />
+             <BrowserRouter>
+                <Header />
+                <div className="ui grid" id="search-label-content">
+                    <div className="ten wide column" id="search-label-content-column">
+                        <div className="ui left action left icon input fluid">
+                            <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
+                            <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
+                            <input type="text" placeholder="Search" />
+                        </div>
+                    </div>
+                    <div className="six wide column" id="search-label-content-column">
+                        <Link to="/labels" className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</Link>
+                        <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon'/> Milestones 332</button>
+                        <button className="positive ui button" style={{ marginLeft:'5px' }}>New Issue</button>
                     </div>
                 </div>
-                <div className="six wide column" id="search-label-content-column">
-                    <button className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</button>
-                    <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon'/> Milestones 332</button>
-                    <button className="positive ui button" style={{ marginLeft:'5px' }}>New Issue</button>
+                <div className="ui container" id="main-content">
+                    <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber === 1 ? 1 : pageNumber -1)}>Prev</button>
+                    <button className='ui basic grey button' onClick={() => setpageNumber(pageMax === 1 ? pageNumber -1  : pageNumber + 1)}>Next</button>
+                    <Routes>
+                        <Route path='/' element={<Content issues={issue} />} />
+                        <Route path='/labels' element={<Label labels={label} />} />
+                    </Routes>
                 </div>
-            </div>
-            <div className="ui container" id="main-content">
-                        <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber -1)}>Prev</button>
-                        <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber +1)}>Next</button>
-                <Route path='/'>
-                        <Content issues={issue} />
-                </Route>
-                <Route path='/issues'>
-                        <Content issues={issue} />
-                </Route>
-                <Route path='/labels'>
-                        <Label labels={label} />
-                </Route>
-            </div>
+            </BrowserRouter>
         </div>
     )
 }

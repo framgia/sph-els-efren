@@ -24,8 +24,7 @@ import React, { useState } from "react";
                     </div>
                     <i className="dropdown icon" />
                 </div>
-        </div>
-    );
+            </div>
+        );
 }
 export default DropDown;
-

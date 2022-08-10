@@ -52,6 +52,14 @@ const App = () => {
               state: githubState === 'all' ? 'all' : githubState.value
             }
           }).then(response => {
+
+            // response.data.map((res) => {
+
+            //   res.labels.map((label) => {
+            //      console.log(label.name)
+            //   })
+                
+            // })
             
             const isDataAvailable = response.data && response.data.length;
             setIssue(isDataAvailable ? response.data : [])

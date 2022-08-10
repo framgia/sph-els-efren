@@ -20,6 +20,11 @@ const Content = ({issues}) => {
     }, [])
 
     const renderedList = issues.map((issue) => {
+        let labelName = '';
+        
+        issue.labels.map((label) => {
+            labelName = label.name
+         })
 
         return(
           
@@ -35,7 +40,7 @@ const Content = ({issues}) => {
                     >{issue.user.login}</td>
                 <td className="right aligned collapsing">{issue.created_at}</td>
                 <td>{issue.state}</td>
-                <td>{issue.labels[0].name}</td>
+                <td>{labelName}</td>
                  
             </tr>
         ); 

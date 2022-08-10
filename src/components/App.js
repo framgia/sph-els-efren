@@ -46,7 +46,7 @@ const App = () => {
     const [pageMax, setPageMax] = useState(0);
     const loadIssues = async (pageNumber) => {
 
-      await github.get('/issues', {
+     await github.get('/issues', {
             params: {
               page:  pageNumber,
               state: githubState === 'all' ? 'all' : githubState.value
@@ -60,6 +60,7 @@ const App = () => {
           }).catch(function(error) {
             console.error(error);
         });
+
     }
         
     const loadLabel = async () => {

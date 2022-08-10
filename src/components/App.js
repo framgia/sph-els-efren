@@ -53,17 +53,9 @@ const App = () => {
             }
           }).then(response => {
 
-            // response.data.map((res) => {
-
-            //   res.labels.map((label) => {
-            //      console.log(label.name)
-            //   })
-                
-            // })
-            
-            const isDataAvailable = response.data && response.data.length;
-            setIssue(isDataAvailable ? response.data : [])
-            setPageMax(isDataAvailable === 0 ? 1 : 0)
+                const isDataAvailable = response.data && response.data.length;
+                setIssue(isDataAvailable ? response.data : [])
+                setPageMax(isDataAvailable === 0 ? 1 : 0)
 
           }).catch(function(error) {
             console.error(error);

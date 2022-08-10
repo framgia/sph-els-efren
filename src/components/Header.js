@@ -11,7 +11,7 @@ const Header = () => {
             <div className='header item'>
                 <div className="ui transparent icon input">
                     <input type="text" placeholder='Search or jump to...' />
-                    <i className="inverted search link icon"></i>
+                    <i className="inverted search link icon" />
                 </div>
             </div>
             <a className='header item' href="">Pull requests</a>
@@ -21,7 +21,7 @@ const Header = () => {
 
             <div className='header item right aligned'>
                 <div className="ui right dropdown item">
-                    <i className="dropdown icon"></i>
+                    <i className="dropdown icon" />
                     <div className="menu">
                         <div className="item">Applications</div>
                         <div className="item">International Students</div>

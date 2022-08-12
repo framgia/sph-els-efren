@@ -47,7 +47,7 @@ const Content = ({issues ,githubState}) => {
 
         const LabelItem = issue.labels.map((label, index) => {
             return(
-                <span key={index} className="ui basic label" style={{ backgroundColor:`#${label.color}`, opacity:'0.5',borderRadius:'2em', border:`solid grey` }}> {label.name}</span>
+                <span key={index} className="ui basic label" style={{ backgroundColor:`#${label.color}`, opacity:'0.5',borderRadius:'2em', border:`solid grey 1px` }}> {label.name}</span>
             );
          })
 

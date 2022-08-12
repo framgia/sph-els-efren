@@ -6,6 +6,7 @@ import Label from './Label';
 import '../style.css';
 import Route from './Route';
 import DropDown from './DropDown';
+<<<<<<< Updated upstream
 
 /*
 	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status
@@ -15,9 +16,23 @@ import DropDown from './DropDown';
 	Issues Detail Page	Once an item in issues list page is clicked, should redirect to new page and display Detail Page
 		*Display header area with ff information:  Title, ID, Author, Date info, Status, Labels
 		*Display information area with Author, and Description with proper markdown display
+=======
+import PageDetails from './PageDetail';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+
+/*
+	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status ✓
+		*Able to display labels with respective colors ✓
+		*Able to paginate through all issues (Previous and Next behavior only) ✓
+		*Able to filter according to status: All, Open, Closed ✓
+	Issues Detail Page	Once an item in issues list page is clicked, should redirect to new page and display Detail Page ✓
+		*Display header area with ff information:  Title, ID, Author, Date info, Status, Labels ✓
+		*Display information area with Author, and Description with proper markdown display ✓
+>>>>>>> Stashed changes
 	Additional Features 	Display owner and name information in header area
 		*Provide form to input repo information dynamically, and display related issues
 */
+// packages : react-router-dom , moment , @tippyjs
 
 const options = [
     {
@@ -43,6 +58,7 @@ const App = () => {
     const [label, setLabel] = useState([]);
     const [pageNumber, setpageNumber] = useState(0);
     const [githubState, setgithubState] = useState(options[0].value); // for filter open/closed/all
+<<<<<<< Updated upstream
 
     const loadIssues = async (pageNumber) => {
 
@@ -53,8 +69,27 @@ const App = () => {
             }
           });
         setIssue(response.data)
+=======
+    const [pageMax, setPageMax] = useState(0);
+
+    const loadIssues = async (pageNumber) => {
+        await github.get('/issues', {
+                params: {
+                page:  pageNumber,
+                state: githubState === 'all' ? 'all' : githubState.value
+                }
+            }).then(response => {
+
+                    const isDataAvailable = response.data && response.data.length;
+                    setIssue(isDataAvailable ? response.data : [])
+                    setPageMax(isDataAvailable === 0 ? 1 : 0)
+
+            }).catch(function(error) {
+                console.error(error);
+            });
+>>>>>>> Stashed changes
     }
-        
+   
     const loadLabel = async () => {
         const response = await github.get('labels');
         setLabel(response.data)
@@ -86,6 +121,7 @@ const App = () => {
                     </div>
                 </div>
                 <div className="ui container" id="main-content">
+<<<<<<< Updated upstream
                             <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber -1)}>Prev</button>
                             <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber +1)}>Next</button>
                     <Route path='/'>
@@ -97,6 +133,15 @@ const App = () => {
                     <Route path='/labels'>
                            <Label labels={label} />
                     </Route>
+=======
+                    <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber === 1 ? 1 : pageNumber -1)}>Prev</button>
+                    <button className='ui basic grey button' onClick={() => setpageNumber(pageMax === 1 ? pageNumber -1  : pageNumber + 1)}>Next</button>
+                    <Routes>
+                        <Route path="/" element={<Content issues={issue} githubState={githubState === 'all' ? options[0] : githubState}  />} />
+                        <Route path="/labels" element={<Label labels={label} />} />
+                        <Route path="/page_details/:id" exact element={ <PageDetails />} />
+                    </Routes>
+>>>>>>> Stashed changes
                 </div>
             </div>
         )

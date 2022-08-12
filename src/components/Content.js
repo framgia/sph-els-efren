@@ -5,7 +5,7 @@ import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css';
 import moment from 'moment';
 
-const Content = ({issues ,githubState}) => {
+const Content = ({issues ,githubState, pageNumber , pageMax ,setpageNumber}) => {
 
     const [author, setAuthor] = useState('')
     const [authors, setAuthors] = useState([])
@@ -66,23 +66,27 @@ const Content = ({issues ,githubState}) => {
     });
  
     return( 
-        <table className="ui small single line table inverted">
-            <thead>
-                <tr>
-                    <th colSpan="6">
-                        {
-                            //for refactor
-                            (githubState.value === 'open') ? <div> <span>{count} Open</span> <i className="check small white icon" /> <span style={{ fontWeight:'lighter' }}> {count2} Closed</span> </div>
-                                :(githubState.value  === 'closed') ? <div> <span style={{ fontWeight:'lighter'}}>{count} Open</span> <span>  {count2} Closed </span> <i className="check small white icon" /> </div>
-                                    : <div> <span>{count} Open</span> <span> {count2} Closed</span></div>
-                        }
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-              {renderedList}
-            </tbody>
-        </table>
+      <div>
+            <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber === 1 ? 1 : pageNumber -1)}>Prev</button>
+            <button className='ui basic grey button' onClick={() => setpageNumber(pageMax === 1 ? pageNumber -1  : pageNumber + 1)}>Next</button>
+            <table className="ui small single line table inverted">
+                <thead>
+                    <tr>
+                        <th colSpan="6">
+                            {
+                                //for refactor
+                                (githubState.value === 'open') ? <div> <span>{count} Open</span> <i className="check small white icon" /> <span style={{ fontWeight:'lighter' }}> {count2} Closed</span> </div>
+                                    :(githubState.value  === 'closed') ? <div> <span style={{ fontWeight:'lighter'}}>{count} Open</span> <span>  {count2} Closed </span> <i className="check small white icon" /> </div>
+                                        : <div> <span>{count} Open</span> <span> {count2} Closed</span></div>
+                            }
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {renderedList}
+                </tbody>
+            </table>
+      </div>
     );
 }
 

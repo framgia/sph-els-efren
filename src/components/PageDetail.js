@@ -3,11 +3,9 @@ import github from '../api/github';
 import { useParams } from 'react-router-dom'
 
 function PageDetails() {
-
     const [isData, setisData] = useState([]);
     const { id } = useParams();
 
-   
     useEffect(() => {
         const loadPageDetails = async () => {
             await github.get('/issues/' + id, {
@@ -34,19 +32,21 @@ function PageDetails() {
                         </tr>
                     </thead>
                     <tbody>
+                      <tr>
+                        <td>
+                            {isData.body}
+                        </td>
+                      </tr>
                     </tbody>
                 </table>
             </div>
         );
     }
-
     return(
         <div className="ui container">
            <LoadData />
         </div>
     );
-
-
 }
 
 export default PageDetails;

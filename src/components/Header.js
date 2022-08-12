@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../github.png'; // temporary to be remove for testing purposes
+import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
 
 const Header = () => {
 
@@ -7,7 +7,7 @@ const Header = () => {
     return(
         <div className="ui fixed borderless huge menu">
                 <div className="header item">
-                    <i className="big github icon inverted" />
+                <Link to="/" > <i className="big github icon inverted" /></Link>
                 </div>
                 <div className='header item'>
                     <div className="ui transparent icon input">
@@ -24,6 +24,7 @@ const Header = () => {
                     <div className="ui right dropdown item">
                         <i className="dropdown icon"></i>
                         <div className="menu">
+                            
                             <div className="item">Applications</div>
                             <div className="item">International Students</div>
                             <div className="item">Scholarships</div>

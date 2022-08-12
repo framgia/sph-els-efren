@@ -6,7 +6,7 @@ import Label from './Label';
 import '../style.css';
 import DropDown from './DropDown';
 import PageDetails from './PageDetail';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
 
 /*
 	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status ✓
@@ -90,7 +90,7 @@ const App = () => {
                             </div>
                         </div>
                         <div className="six wide column" id="search-label-content-column">
-                            <button className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</button>
+                            <Link to="/labels" className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</Link>
                             <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon' /> Milestones 332</button>
                             <button className="positive ui button">New Issue</button>
                         </div>
@@ -105,6 +105,7 @@ const App = () => {
                         </Routes>
                     </div>
                 </BrowserRouter>
+                <Outlet />
             </div>
         )
 }

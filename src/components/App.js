@@ -5,8 +5,8 @@ import github from '../api/github';
 import Label from './Label';
 import '../style.css';
 import DropDown from './DropDown';
-import PageDetails from './PageDetail';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import PageDetails from './PageDetails';
+import { BrowserRouter, Route, Routes , Outlet } from 'react-router-dom'
 
 /*
 	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status ✓
@@ -103,6 +103,7 @@ const App = () => {
                         </Routes>
                     </div>
                 </BrowserRouter>
+                <Outlet/>
             </div>
         )
 }

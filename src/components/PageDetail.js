@@ -11,9 +11,7 @@ function PageDetails() {
             await github.get('/issues/' + id, {
         
                 }).then(response => {
-                    
                     setisData(response.data)
-                  
                 }).catch(function(error) {
                     console.error(error);
                 });

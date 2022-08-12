@@ -5,19 +5,23 @@ import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css';
 import moment from 'moment';
 
-const Content = ({issues ,githubState}) => {
-
-    const [author, setAuthor] = useState('')
+const Content = ({issues ,githubState, setpageNumber, pageNumber, pageMax }) => {
+   const [author, setAuthor] = useState('')
     const [authors, setAuthors] = useState([])
-
     let count=0,count2 = 0, active, closed;
     active = issues.filter(item => item.state === 'open');
     closed = issues.filter(item => item.state === 'closed');
     count = active.length;
     count2 = closed.length;
+    
+    const renderedList = issues.map((issue) => {
 
-
-
+        const LabelItem = issue.labels.map((label, index) => {
+            return(
+                <span key={index} className="ui basic label" style={{ backgroundColor:`#${label.color}`, opacity:'0.5',borderRadius:'2em', border:`solid grey 1px` }}> {label.name}</span>
+            );
+        })
+        
     const loadAuthor = async () => {
        if(author != '' && author != 'undefined') {
             await axios.get('https://api.github.com/users/'+ author, {
@@ -44,13 +48,11 @@ const Content = ({issues ,githubState}) => {
     }
     
     const renderedList = issues.map((issue) => {
-
         const LabelItem = issue.labels.map((label, index) => {
             return(
                 <span key={index} className="ui basic label" style={{ backgroundColor:`#${label.color}`, opacity:'0.5',borderRadius:'2em', border:`solid grey 1px` }}> {label.name}</span>
             );
-         })
-
+     })   
         return(
             <tr key={issue.id}>
                 <td>
@@ -66,7 +68,10 @@ const Content = ({issues ,githubState}) => {
     });
  
     return( 
-        <table className="ui small single line table inverted">
+        <div>
+            <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber === 1 ? 1 : pageNumber -1)}>Prev</button>
+            <button className='ui basic grey button' onClick={() => setpageNumber(pageMax === 1 ? pageNumber -1  : pageNumber + 1)}>Next</button>
+            <table className="ui small single line table inverted">
             <thead>
                 <tr>
                     <th colSpan="6">
@@ -83,6 +88,7 @@ const Content = ({issues ,githubState}) => {
               {renderedList}
             </tbody>
         </table>
+        </div>
     );
 }
 

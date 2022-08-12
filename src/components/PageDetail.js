@@ -14,10 +14,10 @@ function PageDetails() {
             await github.get('/issues/' + id, {
         
                 }).then(response => {
-                    
                     setisData(response.data)
                     setImages(response.data.user.avatar_url)
                     setUserLogin(response.data.user.login)
+
                 }).catch(function(error) {
                     console.error(error);
                 });

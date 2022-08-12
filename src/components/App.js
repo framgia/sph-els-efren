@@ -7,7 +7,6 @@ import '../style.css';
 import DropDown from './DropDown';
 import PageDetails from './PageDetail';
 import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
-
 /*
 	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status ✓
 		*Able to display labels with respective colors ✓
@@ -20,7 +19,6 @@ import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
 		*Provide form to input repo information dynamically, and display related issues
 */
 // packages : react-router-dom , moment , @tippyjs
-
 const options = [
     {
       label: "All",

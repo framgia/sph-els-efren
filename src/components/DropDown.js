@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-const DropDown = ({ label, options, selected, onSelectedChange }) => {
-   
+    const DropDown = ({ label, options, selected, onSelectedChange }) => {
     const [open, setOpen] = useState(false);
-
+    
     const renderedOptions = options.map((option) => {
         if(option.value === selected.value) {
             return null;
@@ -26,6 +25,6 @@ const DropDown = ({ label, options, selected, onSelectedChange }) => {
                     <i className="dropdown icon" />
                 </div>
             </div>
-    );
+        );
 }
 export default DropDown;

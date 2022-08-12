@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
-const Content = ({issues ,githubState}) => {
+const Content = ({issues ,githubState, setpageNumber, pageNumber, pageMax }) => {
 
     let count=0,count2 = 0, active, closed;
     active = issues.filter(item => item.state === 'open');
@@ -30,7 +30,10 @@ const Content = ({issues ,githubState}) => {
     });
  
     return( 
-        <table className="ui small single line table inverted">
+        <div>
+            <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber === 1 ? 1 : pageNumber -1)}>Prev</button>
+            <button className='ui basic grey button' onClick={() => setpageNumber(pageMax === 1 ? pageNumber -1  : pageNumber + 1)}>Next</button>
+            <table className="ui small single line table inverted">
             <thead>
                 <tr>
                     <th colSpan="6">
@@ -47,6 +50,7 @@ const Content = ({issues ,githubState}) => {
               {renderedList}
             </tbody>
         </table>
+        </div>
     );
 }
 

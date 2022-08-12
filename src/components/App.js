@@ -19,7 +19,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 	Additional Features 	Display owner and name information in header area
 		*Provide form to input repo information dynamically, and display related issues
 */
-// packages : react-router-dom , moment , @tippyjs
+// packages : react-router-dom , moment 
 
 const options = [
     {
@@ -96,10 +96,8 @@ const App = () => {
                         </div>
                     </div>
                     <div className="ui container" id="main-content">
-                        <button className='ui basic grey button' onClick={() => setpageNumber(pageNumber === 1 ? 1 : pageNumber -1)}>Prev</button>
-                        <button className='ui basic grey button' onClick={() => setpageNumber(pageMax === 1 ? pageNumber -1  : pageNumber + 1)}>Next</button>
                         <Routes>
-                            <Route path="/" element={<Content issues={issue} githubState={githubState === 'all' ? options[0] : githubState}  />} />
+                            <Route path="/" element={<Content issues={issue} githubState={githubState === 'all' ? options[0] : githubState} setpageNumber={setpageNumber} pageNumber={pageNumber} pageMax={pageMax}  />} />
                             <Route path="/labels" element={<Label labels={label} />} />
                             <Route path="/page_details/:id" exact element={ <PageDetails />} />
                         </Routes>

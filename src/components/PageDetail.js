@@ -7,15 +7,12 @@ function PageDetails() {
     const [isData, setisData] = useState([]);
     const { id } = useParams();
 
-   
     useEffect(() => {
         const loadPageDetails = async () => {
             await github.get('/issues/' + id, {
         
                 }).then(response => {
-                    
                     setisData(response.data)
-                  
                 }).catch(function(error) {
                     console.error(error);
                 });

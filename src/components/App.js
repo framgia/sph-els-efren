@@ -76,10 +76,6 @@ const App = () => {
     useEffect(() => {
         loadLabel();
     },[])
-
-    function handleChange(e) {
-        setText(e.target.value);
-    }
     
     function handleSubmit(e) {
         e.preventDefault();
@@ -96,7 +92,7 @@ const App = () => {
                                 <div className="ui left action left icon input fluid">
                                     <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
                                     <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
-                                        <input id="searchbar" type="text" value={text} onChange={handleChange} />
+                                        <input id="searchbar" type="text" value={text} onChange={(e) => setText(e.target.value)} />
                                 </div>
                             </form>
                         </div>

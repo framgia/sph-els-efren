@@ -9,12 +9,13 @@ const Label = ({labels}) => {
         return(
             <tr key={label.id}>
                 <td className="collapsing">
-                    <a className="ui basic label" style={{  font:'12px',
-                                                            backgroundColor:`#${label.color}`,
-                                                            opacity: '0.5',
-                                                            borderRadius:'2em',
-                                                            border:`solid grey 0.5px` 
-                                                            }}>{label.name}</a>
+                    <a className="ui basic label" style={{  
+                        font:'12px',
+                        backgroundColor:`#${label.color}`,
+                        opacity: '0.5',
+                        borderRadius:'2em',
+                        border:`solid grey 0.5px` 
+                    }}>{label.name}</a>
                 </td>
                 <td className="right aligned collapsing">{label.description}</td>
                 <td className="right aligned collapsing">{label.created_at}</td>

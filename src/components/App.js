@@ -15,8 +15,8 @@ import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
 	Issues Detail Page	Once an item in issues list page is clicked, should redirect to new page and display Detail Page ✓
 		*Display header area with ff information:  Title, ID, Author, Date info, Status, Labels ✓
 		*Display information area with Author, and Description with proper markdown display ✓
-	Additional Features 	Display owner and name information in header area
-		*Provide form to input repo information dynamically, and display related issues
+	Additional Features 	Display owner and name information in header area ✓
+		*Provide form to input repo information dynamically, and display related issues ✓
 */
 // packages : react-router-dom , moment , @tippyjs
 const options = [
@@ -44,9 +44,11 @@ const App = () => {
     const [pageNumber, setpageNumber] = useState(0);
     const [pageMax, setPageMax] = useState(0);
     const [githubState, setgithubState] = useState(options[0].value); // for filter open/closed/all
+    const [selectedRepo, setSelectedRepo] = useState('vue');
+    const [text, setText] = useState('');
 
     const loadIssues = async (pageNumber) => {
-        await github.get('/issues', {
+        await github.get('/'+ selectedRepo +'/issues', {
                 params: {
                 page:  pageNumber,
                 state: githubState === 'all' ? 'all' : githubState.value
@@ -61,19 +63,30 @@ const App = () => {
                 console.error(error);
             });
     }
+
    
     const loadLabel = async () => {
-        const response = await github.get('labels');
+        const response = await github.get('/vue/labels');
         setLabel(response.data)
     }
 
     useEffect(() => {
         loadIssues(pageNumber);
-    }, [pageNumber, githubState]);
+    }, [pageNumber, githubState,selectedRepo]);
 
     useEffect(() => {
         loadLabel();
     },[])
+
+    function handleChange(e) {
+        setText(e.target.value);
+    }
+    
+    function handleSubmit(e) {
+        e.preventDefault();
+        setSelectedRepo(text);
+        setText("");
+    }
 
         return (
             <div className='ui container'>
@@ -81,11 +94,13 @@ const App = () => {
                     <Header />
                     <div className="ui grid" id="search-label-content">
                         <div className="ten wide column" id="search-label-content-column">
-                            <div className="ui left action left icon input fluid">
-                                <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
-                                <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
-                                <input type="text" placeholder="Search" />
-                            </div>
+                            <form onSubmit={handleSubmit}>
+                                <div className="ui left action left icon input fluid">
+                                    <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
+                                    <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
+                                        <input id="searchbar" type="text" value={text} onChange={handleChange} />
+                                </div>
+                            </form>
                         </div>
                         <div className="six wide column" id="search-label-content-column">
                             <Link to="/labels" className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</Link>

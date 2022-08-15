@@ -64,7 +64,6 @@ const App = () => {
             });
     }
 
-   
     const loadLabel = async () => {
         const response = await github.get('/vue/labels');
         setLabel(response.data)
@@ -87,7 +86,6 @@ const App = () => {
         setSelectedRepo(text);
         setText("");
     }
-
         return (
             <div className='ui container'>
                 <BrowserRouter>

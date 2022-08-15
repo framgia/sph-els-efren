@@ -41,7 +41,7 @@ function PageDetails() {
                                 <span style={{ color:'white' }}></span>
                                 </div>
                                 <div className="summary">
-                                    <button className="ui circular green button">{ isData.state }</button>
+                                    <label className="ui mini circular green button">{ isData.state }</label>
                                     <span style={{ color:'white',fontWeight:'lighter' }}> { userLogin } { isData.state } this issue yesterday 0 . Comments</span>
                                 </div>
                                 <table className="ui inverted table">

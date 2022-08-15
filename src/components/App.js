@@ -6,8 +6,7 @@ import Label from './Label';
 import '../style.css';
 import DropDown from './DropDown';
 import PageDetails from './PageDetail';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-
+import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
 /*
 	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status ✓
 		*Able to display labels with respective colors ✓
@@ -16,11 +15,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 	Issues Detail Page	Once an item in issues list page is clicked, should redirect to new page and display Detail Page ✓
 		*Display header area with ff information:  Title, ID, Author, Date info, Status, Labels ✓
 		*Display information area with Author, and Description with proper markdown display ✓
-	Additional Features 	Display owner and name information in header area
-		*Provide form to input repo information dynamically, and display related issues
+	Additional Features 	Display owner and name information in header area ✓
+		*Provide form to input repo information dynamically, and display related issues ✓
 */
-// packages : react-router-dom , moment 
-
+// packages : react-router-dom , moment , @tippyjs
 const options = [
     {
       label: "All",
@@ -46,9 +44,11 @@ const App = () => {
     const [pageNumber, setpageNumber] = useState(0);
     const [pageMax, setPageMax] = useState(0);
     const [githubState, setgithubState] = useState(options[0].value); // for filter open/closed/all
+    const [selectedRepo, setSelectedRepo] = useState('vue');
+    const [text, setText] = useState('');
 
-    const loadIssues = async (pageNumber) => {
-        await github.get('/issues', {
+    const loadIssues = (pageNumber) => {
+            github.get(`/${selectedRepo}/issues`, {
                 params: {
                 page:  pageNumber,
                 state: githubState === 'all' ? 'all' : githubState.value
@@ -63,46 +63,54 @@ const App = () => {
                 console.error(error);
             });
     }
-   
-    const loadLabel = async () => {
-        const response = await github.get('labels');
+
+    const loadLabel =  () => {
+        const response = github.get(`/${selectedRepo}/labels`);
         setLabel(response.data)
     }
 
     useEffect(() => {
         loadIssues(pageNumber);
-    }, [pageNumber, githubState]);
+    }, [pageNumber, githubState,selectedRepo]);
 
     useEffect(() => {
         loadLabel();
     },[])
-
+    
+    function handleSubmit(e) {
+        e.preventDefault();
+        setSelectedRepo(text);
+        setText("");
+    }
         return (
             <div className='ui container'>
                 <BrowserRouter>
                     <Header />
                     <div className="ui grid" id="search-label-content">
                         <div className="ten wide column" id="search-label-content-column">
-                            <div className="ui left action left icon input fluid">
-                                <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
-                                <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
-                                <input type="text" placeholder="Search" />
-                            </div>
+                            <form onSubmit={handleSubmit}>
+                                <div className="ui left action left icon input fluid">
+                                    <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
+                                    <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
+                                        <input id="searchbar" type="text" value={text} onChange={(e) => setText(e.target.value)} />
+                                </div>
+                            </form>
                         </div>
                         <div className="six wide column" id="search-label-content-column">
-                            <button className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</button>
+                            <Link to="/labels" className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</Link>
                             <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon' /> Milestones 332</button>
                             <button className="positive ui button">New Issue</button>
                         </div>
                     </div>
                     <div className="ui container" id="main-content">
                         <Routes>
-                            <Route path="/" element={<Content issues={issue} githubState={githubState === 'all' ? options[0] : githubState} setpageNumber={setpageNumber} pageNumber={pageNumber} pageMax={pageMax}  />} />
+                            <Route path="/" element={<Content issues={issue} selectedRepo={selectedRepo} githubState={githubState === 'all' ? options[0] : githubState} setpageNumber={setpageNumber} pageMax={pageMax} pageNumber={pageNumber}   />} />
                             <Route path="/labels" element={<Label labels={label} />} />
-                            <Route path="/page_details/:id" exact element={ <PageDetails />} />
+                            <Route path="/page_details/:id/:repo" exact element={ <PageDetails />} />
                         </Routes>
                     </div>
                 </BrowserRouter>
+                <Outlet />
             </div>
         )
 }

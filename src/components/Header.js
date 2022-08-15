@@ -1,8 +1,25 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Outlet, Link } from "react-router-dom";
-const Header = () => {
+import axios from 'axios';
 
-    //make it dynamic (add user profile)
+const Header = () => {
+    const [authoName, setAuthorName] = useState('');
+    const [imageLoc, setImageLoc] = useState('');
+
+    const loadAuthor = () => {
+         axios.get('https://api.github.com/users/vuejs', {
+        }).then(response => {
+            setAuthorName(response.data.login)  
+            setImageLoc(response.data.avatar_url)
+        }).catch(function(error) {
+            console.error(error);
+        });
+     }
+
+     useEffect(()=> {
+        loadAuthor();
+     },[])
+
     return(
         <div className="ui fixed borderless huge menu">
             <div className="header item">
@@ -18,10 +35,11 @@ const Header = () => {
             <a className='header item' href="">Issues</a>
             <a className='header item' href="">Marketplace</a>
             <a className='header item' href="">Explore</a>
-
+            
             <div className='header item right aligned'>
                 <div className="ui right dropdown item">
-                    <i className="dropdown icon" />
+                    <img className='ui avatar image' src={imageLoc} alt="profile image" />
+                    <span id="username">{authoName}</span>
                     <div className="menu">
                         <div className="item">Applications</div>
                         <div className="item">International Students</div>
@@ -29,7 +47,7 @@ const Header = () => {
                     </div>
                 </div>   
             </div>
-            <Outlet/>
+              <Outlet/>
         </div>
     
     );

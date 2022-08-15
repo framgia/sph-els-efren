@@ -6,8 +6,8 @@ const Header = () => {
     const [authoName, setAuthorName] = useState('');
     const [imageLoc, setImageLoc] = useState('');
 
-    const loadAuthor = async () => {
-        await axios.get('https://api.github.com/users/vuejs', {
+    const loadAuthor = () => {
+         axios.get('https://api.github.com/users/vuejs', {
         }).then(response => {
             setAuthorName(response.data.login)  
             setImageLoc(response.data.avatar_url)

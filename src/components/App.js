@@ -47,8 +47,8 @@ const App = () => {
     const [selectedRepo, setSelectedRepo] = useState('vue');
     const [text, setText] = useState('');
 
-    const loadIssues = async (pageNumber) => {
-        await github.get(`/${selectedRepo}/issues`, {
+    const loadIssues = (pageNumber) => {
+            github.get(`/${selectedRepo}/issues`, {
                 params: {
                 page:  pageNumber,
                 state: githubState === 'all' ? 'all' : githubState.value
@@ -64,8 +64,8 @@ const App = () => {
             });
     }
 
-    const loadLabel = async () => {
-        const response = await github.get(`/${selectedRepo}/labels`);
+    const loadLabel =  () => {
+        const response = github.get(`/${selectedRepo}/labels`);
         setLabel(response.data)
     }
 
@@ -108,9 +108,9 @@ const App = () => {
                     </div>
                     <div className="ui container" id="main-content">
                         <Routes>
-                            <Route path="/" element={<Content issues={issue} githubState={githubState === 'all' ? options[0] : githubState} setpageNumber={setpageNumber} pageMax={pageMax} pageNumber={pageNumber}  />} />
+                            <Route path="/" element={<Content issues={issue} selectedRepo={selectedRepo} githubState={githubState === 'all' ? options[0] : githubState} setpageNumber={setpageNumber} pageMax={pageMax} pageNumber={pageNumber}   />} />
                             <Route path="/labels" element={<Label labels={label} />} />
-                            <Route path="/page_details/:id" exact element={ <PageDetails />} />
+                            <Route path="/page_details/:id/:repo" exact element={ <PageDetails />} />
                         </Routes>
                     </div>
                 </BrowserRouter>

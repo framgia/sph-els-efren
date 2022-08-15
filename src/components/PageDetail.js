@@ -5,18 +5,14 @@ import moment from 'moment';
 
 function PageDetails() {
     const [isData, setisData] = useState([]);
-    const [images, setImages] = useState('');
-    const [userLogin, setUserLogin] = useState('');
-    const { id } = useParams();
+    const { id , repo } = useParams();
 
     useEffect(() => {
-        const loadPageDetails = async () => {
-            await github.get('/issues/' + id, {
+        const loadPageDetails = () => {
+                github.get(`${repo}/issues/` + id, {
         
                 }).then(response => {
                     setisData(response.data)
-                    setImages(response.data.user.avatar_url)
-                    setUserLogin(response.data.user.login)
 
                 }).catch(function(error) {
                     console.error(error);
@@ -24,7 +20,6 @@ function PageDetails() {
         }
         loadPageDetails()
     },[id])
-
 
     const LoadData = () => {
         return(
@@ -34,7 +29,7 @@ function PageDetails() {
                     <div className="ui feed">
                         <div className="event">
                             <div className="label">
-                                <img className="ui circular mini image" src={images} alt="profile" />
+                                <img className="ui circular mini image" src={isData.user?.avatar_url} alt="profile" />
                             </div>
                             <div className="content">
                                 <div className="date">
@@ -42,13 +37,13 @@ function PageDetails() {
                                 </div>
                                 <div className="summary">
                                     <label className="ui mini circular green button">{ isData.state }</label>
-                                    <span style={{ color:'white',fontWeight:'lighter' }}> { userLogin } { isData.state } this issue yesterday 0 . Comments</span>
+                                    <span style={{ color:'white',fontWeight:'lighter' }}> { isData.user?.login } { isData.state } this issue yesterday 0 . Comments</span>
                                 </div>
                                 <table className="ui inverted table">
                                     <thead>
                                         <tr>
                                             <th>
-                                            <span style={{ fontWeight:'lighter' }}> {userLogin} commented {moment.utc(isData.created_at).local().startOf('seconds').fromNow()}</span>
+                                            <span style={{ fontWeight:'lighter' }}> {isData.user?.login} commented {moment.utc(isData.created_at).local().startOf('seconds').fromNow()}</span>
                                             </th>
                                         </tr>
                                     </thead>

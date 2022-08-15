@@ -48,7 +48,7 @@ const App = () => {
     const [text, setText] = useState('');
 
     const loadIssues = async (pageNumber) => {
-        await github.get('/'+ selectedRepo +'/issues', {
+        await github.get(`/${selectedRepo}/issues`, {
                 params: {
                 page:  pageNumber,
                 state: githubState === 'all' ? 'all' : githubState.value
@@ -65,7 +65,7 @@ const App = () => {
     }
 
     const loadLabel = async () => {
-        const response = await github.get('/vue/labels');
+        const response = await github.get(`/${selectedRepo}/labels`);
         setLabel(response.data)
     }
 

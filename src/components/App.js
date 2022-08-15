@@ -6,8 +6,7 @@ import Label from './Label';
 import '../style.css';
 import DropDown from './DropDown';
 import PageDetails from './PageDetail';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-
+import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
 /*
 	Issues List Page	List issues with ff information:  Title, ID, Author,  Date info, Status ✓
 		*Able to display labels with respective colors ✓
@@ -19,8 +18,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 	Additional Features 	Display owner and name information in header area
 		*Provide form to input repo information dynamically, and display related issues
 */
-// packages : react-router-dom , moment 
-
+// packages : react-router-dom , moment , @tippyjs
 const options = [
     {
       label: "All",
@@ -90,19 +88,20 @@ const App = () => {
                             </div>
                         </div>
                         <div className="six wide column" id="search-label-content-column">
-                            <button className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</button>
+                            <Link to="/labels" className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</Link>
                             <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon' /> Milestones 332</button>
                             <button className="positive ui button">New Issue</button>
                         </div>
                     </div>
                     <div className="ui container" id="main-content">
                         <Routes>
-                            <Route path="/" element={<Content issues={issue} githubState={githubState === 'all' ? options[0] : githubState} setpageNumber={setpageNumber} pageNumber={pageNumber} pageMax={pageMax}  />} />
+                            <Route path="/" element={<Content issues={issue} githubState={githubState === 'all' ? options[0] : githubState} setpageNumber={setpageNumber} pageMax={pageMax} pageNumber={pageNumber}  />} />
                             <Route path="/labels" element={<Label labels={label} />} />
                             <Route path="/page_details/:id" exact element={ <PageDetails />} />
                         </Routes>
                     </div>
                 </BrowserRouter>
+                <Outlet />
             </div>
         )
 }

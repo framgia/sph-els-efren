@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet, Link } from "react-router-dom";
+
 const Header = () => {
 
     //make it dynamic (add user profile)
@@ -18,7 +19,7 @@ const Header = () => {
             <a className='header item' href="">Issues</a>
             <a className='header item' href="">Marketplace</a>
             <a className='header item' href="">Explore</a>
-
+            
             <div className='header item right aligned'>
                 <div className="ui right dropdown item">
                     <i className="dropdown icon" />
@@ -29,7 +30,7 @@ const Header = () => {
                     </div>
                 </div>   
             </div>
-            <Outlet/>
+              <Outlet/>
         </div>
     
     );

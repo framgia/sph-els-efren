@@ -54,6 +54,10 @@ a :hover {
     min-height: 1em;
 }
 
+a:hover {
+    color: #2185d0 !important;
+  }
+
 #searchbar {
     padding:2px;
     margin-left:-5px;

@@ -17,7 +17,7 @@ import React, { useState } from "react";
 
     return (
             <div onClick={() => setOpen(!open)} className="ui form">
-                <div onClick={() => setOpen(!open)} className={`ui basic inverted floating dropdown button ${open ? 'visible active': ''}`}>
+                <div  onClick={() => setOpen(!open)} className={`ui basic floating dropdown inverted button ${open ? 'visible active': ''}`}>
                     <div className="text">{selected.label}</div>
                     <div className={`menu ${open ? 'visible transition' : ''}`}>
                         {renderedOptions}

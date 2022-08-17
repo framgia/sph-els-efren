@@ -90,16 +90,16 @@ const App = () => {
                         <div className="ten wide column" id="search-label-content-column">
                             <form onSubmit={handleSubmit}>
                                 <div className="ui left action left icon input fluid">
-                                    <DropDown selected={githubState} options={options} onSelectedChange={setgithubState} />
+                                    <DropDown  selected={githubState} options={options} onSelectedChange={setgithubState} />
                                     <i className="search icon " id="icon-search" style={{ marginLeft:githubState.size }} />
-                                        <input id="searchbar" type="text" value={text} onChange={(e) => setText(e.target.value)} />
+                                        <input style={{ border:'solid',borderWidth:'thin' }} id="searchbar" type="text" value={text} onChange={(e) => setText(e.target.value)} />
                                 </div>
                             </form>
                         </div>
                         <div className="six wide column" id="search-label-content-column">
-                            <Link to="/labels" className="ui basic inverted left attached button"> <i className='ui tag icon' /> Labels 342</Link>
-                            <button className="ui basic inverted right attached  button"> <i className='ui sticky note outline icon' /> Milestones 332</button>
-                            <button className="positive ui button">New Issue</button>
+                            <Link  to="/labels" style={{ padding:'10px',marginRight:'-1.9px',borderTopRightRadius:'1px',borderBottomRightRadius:'1px',fontWeight:'bold' }} className='ui basic grey button'> <i className='ui tag icon' /> Labels 342</Link>
+                            <button style={{ padding:'10px',borderTopLeftRadius:'1px',borderBottomLeftRadius:'1px',fontWeight:'bold' }} className='ui basic grey button'> <i className='ui sticky note outline icon' /> Milestones 332</button>
+                            <button style={{ marginLeft:'20px',backgroundColor:'#238636',color:'white' }} className=" ui button">New Issue</button>
                         </div>
                     </div>
                     <div className="ui container" id="main-content">
